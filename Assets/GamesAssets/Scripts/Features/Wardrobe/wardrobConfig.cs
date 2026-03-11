@@ -3,6 +3,25 @@ using UnityEngine;
 [ExecuteAlways]
 public class WardrobeConfig : MonoBehaviour
 {
+
+    public enum PartType
+    {
+        LeftPanel,
+        RightPanel,
+        TopPanel,
+        BottomPanel,
+        BackPanel,
+        FrontLeftPanel,
+        FrontRightPanel,
+        LeftHinges,
+        RightHinges,
+        Plint
+    }
+
+    [Header("Camera Stuff")]
+    public GameObject cameraTarget;
+    public PartType focusPart;
+
     [Header("Dimensions (mm)")]
     public float width = 1200f;
     public float height = 2000f;
@@ -22,11 +41,12 @@ public class WardrobeConfig : MonoBehaviour
     public Transform rightHinges;
     public GameObject plintPrefab;
 
-    float W;
-    float H;
-    float D;
-    float T;
-    float BH;
+
+    private float W;
+    private float H;
+    private float D;
+    private float T;
+    private float BH;
 
     void Update()
     {
@@ -63,7 +83,7 @@ public class WardrobeConfig : MonoBehaviour
 
         // BACK PANEL
         backPanel.localPosition = new Vector3(-T, T + BH, 0);
-        backPanel.localScale = new Vector3(W-(2*T), H-(2*T), T);
+        backPanel.localScale = new Vector3(W - (2 * T), H - (2 * T), T);
 
         // Hinges
         if (leftHinges != null)
@@ -72,21 +92,21 @@ public class WardrobeConfig : MonoBehaviour
         }
         if (rightHinges != null)
         {
-            rightHinges.localPosition = new Vector3(-W , H / 2, D);
+            rightHinges.localPosition = new Vector3(-W, H / 2, D);
         }
 
         //FrontLeftPanel pivot on left Hinges
         if (frontLeftPanel != null)
         {
             frontLeftPanel.localPosition = new Vector3(T, BH, 0);
-            frontLeftPanel.localScale = new Vector3(T, H, W/2);
+            frontLeftPanel.localScale = new Vector3(T, H, W / 2);
             frontLeftPanel.SetParent(leftHinges, true);
         }
         //FrontRightPanel pivot on right Hinges
         if (frontRightPanel != null)
         {
             frontRightPanel.localPosition = new Vector3(0, BH, 0);
-            frontRightPanel.localScale = new Vector3(T, H, W/2);
+            frontRightPanel.localScale = new Vector3(T, H, W / 2);
             frontRightPanel.SetParent(rightHinges, true);
         }
 
@@ -94,9 +114,9 @@ public class WardrobeConfig : MonoBehaviour
         if (plintPrefab != null)
         {
             plintPrefab.SetActive(plint);
-            plintPrefab.transform.localPosition = new Vector3(-W/2, BH/2, D/2);
+            plintPrefab.transform.localPosition = new Vector3(-W / 2, BH / 2, D / 2);
             plintPrefab.transform.localScale = new Vector3(W, BH, D);
         }
-        
+
     }
 }
